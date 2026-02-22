@@ -4,6 +4,8 @@
 
 Israstat Explorer is a high-end, data-driven platform designed to identify personalized property opportunities across Israel. By intersecting Bank of Israel (BoI) regulations with granular market data, it provides users with a "Purchasing Power" first approach to real estate.
 
+**[→ Live Demo](https://romanzarkhin.github.io/israstat-explorer/)**
+
 ---
 
 ## 🎨 Visual Identity & UX
@@ -32,6 +34,15 @@ Designed with a **"Modern Heritage"** aesthetic, the application prioritizes vis
 *   **Regional Trends**: 6-region growth ribbon displaying annual appreciation and price-per-sqm metrics.
 *   **Market Pulse**: Real-time ticker for CPI (Consumer Price Index) and construction cost fluctuations.
 
+### 📊 Deal Analysis Modal
+Click any neighborhood card to open an immersive split-view modal:
+*   **Trend Chart**: Interactive Recharts area graph with rolling-average trend line, color-coded dots per deal category, and a dashed median reference line.
+*   **Category Filters**: Instantly filter by *Below Market*, *Market Rate*, *Above Market*, or *Luxury* classifications.
+*   **Deal List**: 40 generated deals per neighborhood — each showing address, date, price, ₪/sqm, size, floor, and category badge.
+*   **Hover-to-Highlight**: Hovering a deal card in the list enlarges and glows its corresponding data point on the chart.
+
+![Deal Analysis Modal — trend chart and deal list with hover interaction](docs/assets/deal-modal-preview.png)
+
 ### 🎞️ Premium Animation System
 *   **Staggered Reveals**: Smooth sequence-based loading for opportunity cards.
 *   **Blur-Scale Transitions**: High-fidelity visual feedback on value updates.
@@ -44,6 +55,7 @@ Designed with a **"Modern Heritage"** aesthetic, the application prioritizes vis
 *   **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
 *   **Language**: [TypeScript](https://www.typescriptlang.org/)
 *   **Styling**: [Tailwind CSS](https://tailwindcss.com/) + Custom CSS Design Tokens
+*   **Charts**: [Recharts](https://recharts.org/)
 *   **Animations**: [Framer Motion](https://www.framer.com/motion/)
 *   **Icons**: [Lucide React](https://lucide.dev/)
 
@@ -76,11 +88,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to explore
 
 ```text
 src/
-├── app/              # Next.js Routes & Layouts
-│   ├── globals.css   # Premium Design System (CSS Tokens)
-│   └── page.tsx      # Main Interactive Intelligence Dashboard
+├── app/                   # Next.js Routes & Layouts
+│   ├── globals.css        # Premium Design System (CSS Tokens + Modal Styles)
+│   └── page.tsx           # Main Interactive Intelligence Dashboard
+├── components/
+│   └── DealModal.tsx      # Split-View Deal Analysis Modal (Recharts + List)
 ├── lib/
-│   └── mortgage-engine.ts # BoI Regulatory & Amortization Logic
+│   ├── mortgage-engine.ts # BoI Regulatory & Amortization Logic
+│   └── deal-provider.ts   # Seeded PRNG Deal Generator & Category Engine
 └── data/
     └── market-snapshot.ts  # Filtered Real Estate & Economic Data
 ```
@@ -91,3 +106,4 @@ src/
 > **Disclaimer**: Israstat Explorer provides estimates based on current Central Bureau of Statistics data. Always consult with a licensed mortgage advisor for final financial decisions.
 
 ---
+

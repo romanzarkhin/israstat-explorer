@@ -25,7 +25,8 @@ import {
   BUYER_LABELS,
   BUYER_DESCRIPTIONS,
 } from '@/lib/mortgage-engine';
-import snapshot from '@/data/market-snapshot';
+import snapshot, { Neighborhood } from '@/data/market-snapshot';
+import DealModal from '@/components/DealModal';
 
 /* ━━━━ Helpers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -84,6 +85,7 @@ export default function Home() {
   });
 
   const [results, setResults] = useState<MortgageResults | null>(null);
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<Neighborhood | null>(null);
 
   useEffect(() => {
     setResults(calculateMortgage(inputs));
@@ -434,7 +436,8 @@ export default function Home() {
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.4, delay: idx * 0.05, ease: 'easeOut' }}
                       layout
-                      className="opp-card"
+                      className="opp-card cursor-pointer"
+                      onClick={() => setSelectedNeighborhood(n)}
                     >
                       <div className="flex justify-between items-start mb-3">
                         <div>
@@ -506,6 +509,16 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {/* ━━━━ Deal Analysis Modal ━━━━━━━━━━━━━━━━━━━━━ */}
+      <AnimatePresence>
+        {selectedNeighborhood && (
+          <DealModal
+            neighborhood={selectedNeighborhood}
+            onClose={() => setSelectedNeighborhood(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
